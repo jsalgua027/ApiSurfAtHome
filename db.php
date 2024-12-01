@@ -5,11 +5,12 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header('Content-Type: application/json');
 
 $host = 'localhost';
-$db_name = 'bd_surfathome';
+$dbname = 'bd_surfathome';
 $username = 'jose'; // Cambia esto si tu usuario de MySQL es diferente
 $password = 'josefa'; // Cambia esto si tienes una contraseña para MySQL
 try {
-    $pdo= new PDO("mysql:host=".$host.";dbname=$dbname", $username, $password,array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES 'utf8'"));
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo 'Connection error: ' . $e->getMessage();
+    die('Error al conectar con la base de datos: ' . $e->getMessage());
 }
